@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfkw3brersx3c"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_g1fdt"]
+[ext_resource type="Texture2D" uid="uid://cje0wsmcw1bnj" path="res://assets/sprites/background_blue.png" id="1_oylpf"]
+[ext_resource type="Texture2D" uid="uid://3chyvgd3h3ia" path="res://assets/sprites/Name logo large.png" id="2_e1ol4"]
+[ext_resource type="FontFile" uid="uid://b2h0rm4535agl" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_rnfx4"]
+[ext_resource type="Texture2D" uid="uid://dvg5i1qywjnre" path="res://assets/sprites/coin_logo.png" id="5_gx3f7"]
+
+[node name="main_menu" type="Node"]
+script = ExtResource("1_g1fdt")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_oylpf")
+stretch_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -374.0
+offset_top = -167.0
+offset_right = 374.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e1ol4")
+
+[node name="level1" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 281.0
+offset_top = 12.0
+offset_right = 536.0
+offset_bottom = 89.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_rnfx4")
+theme_override_font_sizes/font_size = 32
+text = "Level 1"
+
+[node name="level2" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -528.0
+offset_top = 10.0
+offset_right = -273.0
+offset_bottom = 87.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_rnfx4")
+theme_override_font_sizes/font_size = 32
+text = "Level 2"
+
+[node name="Button" type="Button" parent="."]
+offset_right = 96.0
+offset_bottom = 102.0
+icon = ExtResource("5_gx3f7")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="level2" to="." method="_on_level_2_pressed"]

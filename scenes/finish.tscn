@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8wypvpbbu606"]
+
+[ext_resource type="Script" path="res://scripts/level1_finish.gd" id="1_2ipkk"]
+[ext_resource type="Texture2D" uid="uid://bshp003jho37b" path="res://assets/sprites/fruit.png" id="2_khjw6"]
+[ext_resource type="AudioStream" uid="uid://6w563fbhao4m" path="res://assets/sounds/power_up.wav" id="3_m5bke"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f1qb"]
+atlas = ExtResource("2_khjw6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp8ly"]
+atlas = ExtResource("2_khjw6")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag0pc"]
+atlas = ExtResource("2_khjw6")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lln0q"]
+atlas = ExtResource("2_khjw6")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgkly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f1qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tp8ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag0pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lln0q")
+}],
+"loop": true,
+"name": &"color apple",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0de"]
+radius = 5.0
+height = 10.0
+
+[node name="Colourful Apple" type="Area2D"]
+position = Vector2(0, -7)
+collision_mask = 2
+script = ExtResource("1_2ipkk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qgkly")
+animation = &"color apple"
+autoplay = "color apple"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_fv0de")
+
+[node name="PowerupSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 2)
+stream = ExtResource("3_m5bke")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

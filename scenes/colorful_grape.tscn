@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://kybuh84krfqp"]
+
+[ext_resource type="Script" path="res://scripts/level1_finish.gd" id="1_og5p0"]
+[ext_resource type="Texture2D" uid="uid://bshp003jho37b" path="res://assets/sprites/fruit.png" id="2_xphjj"]
+[ext_resource type="AudioStream" uid="uid://6w563fbhao4m" path="res://assets/sounds/power_up.wav" id="3_vycvi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4lm3"]
+atlas = ExtResource("2_xphjj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxmga"]
+atlas = ExtResource("2_xphjj")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qja7k"]
+atlas = ExtResource("2_xphjj")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv73w"]
+atlas = ExtResource("2_xphjj")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgkly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4lm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxmga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qja7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv73w")
+}],
+"loop": true,
+"name": &"color apple",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0de"]
+radius = 5.0
+height = 10.0
+
+[node name="Colourful Apple" type="Area2D"]
+position = Vector2(0, -7)
+script = ExtResource("1_og5p0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qgkly")
+animation = &"color apple"
+autoplay = "color apple"
+frame_progress = 0.116402
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_fv0de")
+
+[node name="PowerupSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 2)
+stream = ExtResource("3_vycvi")
+bus = &"SFX"
