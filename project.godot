@@ -14,6 +14,9 @@ config/name="Knight Run"
 config/version="2.0"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.0117647, 0.14902, 0.34902, 1)
+boot_splash/image="res://assets/sprites/Name logo large.png"
+boot_splash/fullsize=false
 config/icon="res://assets/sprites/coin_logo.png"
 
 [audio]
@@ -23,6 +26,10 @@ buses/default_bus_layout="res://scripts/default_bus_layout.tres"
 [autoload]
 
 Music="*res://scenes/music.tscn"
+
+[display]
+
+window/size/mode=2
 
 [input]
 

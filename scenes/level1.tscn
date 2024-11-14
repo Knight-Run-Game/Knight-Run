@@ -1,17 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://cjqks7ineum7d"]
+[gd_scene load_steps=20 format=3 uid="uid://cjqks7ineum7d"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_ug8yw"]
 [ext_resource type="FontFile" uid="uid://b2h0rm4535agl" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_1xifs"]
 [ext_resource type="Texture2D" uid="uid://dvg5i1qywjnre" path="res://assets/sprites/coin_logo.png" id="3_3gytf"]
+[ext_resource type="Texture2D" uid="uid://dhb37xlf6pf1p" path="res://assets/sprites/Heart.png" id="4_sela4"]
 [ext_resource type="Texture2D" uid="uid://cgdfxk5oavfha" path="res://assets/sprites/world_tileset.png" id="4_v4kso"]
 [ext_resource type="PackedScene" uid="uid://fk0mru0nmnta" path="res://scenes/player.tscn" id="5_lpik8"]
 [ext_resource type="PackedScene" uid="uid://bcq57m3tm6rea" path="res://scenes/platform.tscn" id="6_6hjwc"]
 [ext_resource type="PackedScene" uid="uid://blmgtgkvs2ygi" path="res://scenes/coin.tscn" id="7_syrt7"]
 [ext_resource type="PackedScene" uid="uid://bjt6u1qrg02to" path="res://scenes/killzone.tscn" id="8_oip8f"]
-[ext_resource type="PackedScene" uid="uid://cfcq8snundoko" path="res://scenes/green_slime.tscn" id="9_56r00"]
 [ext_resource type="FontFile" uid="uid://orsuwlqcx7a7" path="res://assets/fonts/PixelOperator8.ttf" id="10_sx7u2"]
 [ext_resource type="PackedScene" uid="uid://b8wypvpbbu606" path="res://scenes/finish.tscn" id="11_bqgh1"]
 [ext_resource type="PackedScene" uid="uid://dhqu5e6ql0vb7" path="res://scenes/level2.tscn" id="12_o8fio"]
+[ext_resource type="PackedScene" uid="uid://b1n3gb3nwm5it" path="res://scenes/slime.tscn" id="13_aje6x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gb5i1"]
 texture = ExtResource("4_v4kso")
@@ -224,9 +225,10 @@ distance = -40.0
 [node name="Game" type="Node2D"]
 metadata/_edit_vertical_guides_ = [-237.0]
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("hearts")]
 unique_name_in_owner = true
 script = ExtResource("1_ug8yw")
+hearts = [NodePath("UI/Health Bar Panel/HBoxContainer/TextureRect"), NodePath("UI/Health Bar Panel/HBoxContainer/TextureRect2"), NodePath("UI/Health Bar Panel/HBoxContainer/TextureRect3")]
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
 offset_left = 461.0
@@ -243,13 +245,13 @@ uppercase = true
 
 [node name="UI" type="CanvasLayer" parent="GameManager"]
 
-[node name="Panel" type="Panel" parent="GameManager/UI"]
+[node name="Score panel" type="Panel" parent="GameManager/UI"]
 offset_left = 7.0
 offset_top = 5.0
 offset_right = 294.0
 offset_bottom = 85.0
 
-[node name="Score" type="Label" parent="GameManager/UI/Panel"]
+[node name="Score" type="Label" parent="GameManager/UI/Score panel"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 76.0
@@ -261,11 +263,44 @@ text = "SCORE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="GameManager/UI/Panel"]
+[node name="TextureRect" type="TextureRect" parent="GameManager/UI/Score panel"]
 layout_mode = 0
 offset_right = 81.0
 offset_bottom = 80.0
 texture = ExtResource("3_3gytf")
+
+[node name="Health Bar Panel" type="Panel" parent="GameManager/UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -293.0
+offset_top = 5.0
+offset_right = -6.0
+offset_bottom = 85.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameManager/UI/Health Bar Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 286.0
+offset_bottom = 79.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GameManager/UI/Health Bar Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_sela4")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="GameManager/UI/Health Bar Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_sela4")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="GameManager/UI/Health Bar Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_sela4")
+expand_mode = 2
 
 [node name="SceneObjects" type="Node" parent="."]
 
@@ -291,6 +326,11 @@ zoom = Vector2(4, 4)
 limit_bottom = 130
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="Fruit" parent="SceneObjects" instance=ExtResource("11_bqgh1")]
+position = Vector2(468, -135)
+scale = Vector2(1.56, 1.68)
+target_level = ExtResource("12_o8fio")
 
 [node name="Platforms" type="Node" parent="SceneObjects"]
 
@@ -362,9 +402,6 @@ position = Vector2(536, -128)
 position = Vector2(1, 81)
 shape = SubResource("WorldBoundaryShape2D_4c6of")
 
-[node name="Slime" parent="SceneObjects" instance=ExtResource("9_56r00")]
-position = Vector2(431, 89)
-
 [node name="Labels" type="Node" parent="SceneObjects"]
 
 [node name="Label" type="Label" parent="SceneObjects/Labels"]
@@ -408,7 +445,5 @@ theme_override_font_sizes/font_size = 8
 text = "Great Job!!"
 horizontal_alignment = 1
 
-[node name="Fruit" parent="SceneObjects" instance=ExtResource("11_bqgh1")]
-position = Vector2(468, -135)
-scale = Vector2(1.56, 1.68)
-target_level = ExtResource("12_o8fio")
+[node name="Slime" parent="SceneObjects" instance=ExtResource("13_aje6x")]
+position = Vector2(425, 77)

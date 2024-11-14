@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfikcega7ehs3"]
+
+[ext_resource type="Texture2D" uid="uid://bdwp01crwxtu6" path="res://assets/sprites/blue_bottle.png" id="1_ig5en"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueaie"]
+size = Vector2(8, 14)
+
+[node name="Blue bottle" type="Area2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ig5en")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+texture_filter = 1
+shape = SubResource("RectangleShape2D_ueaie")
